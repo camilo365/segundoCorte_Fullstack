@@ -1,9 +1,9 @@
 @extends('posts.layout')
 @section('title', 'Listado de Posts')
 @section('content')
-    <h1>Listado de Posts</h1>
+    <h1 style="display:flex; justify-content: center ;">LISTADO DE TAREAS DE DESARROLLO</h1>
     @if($posts->count())
-        <table border="1" cellpadding="8">
+        <table style="margin:auto; border-color: blue;" border="1" cellpadding="8">
             <thead>
                 <tr>
                     <th>ID</th>
