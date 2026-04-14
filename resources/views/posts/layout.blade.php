@@ -170,6 +170,11 @@
             border-radius: 6px;
         }
 
+        .logout{
+            background-color: red;
+            padding: ;
+        }
+
         td button:hover { background: #fecaca; }
     </style>
 </head>
@@ -181,6 +186,7 @@
             <a href="{{ route('posts.create') }}">Crear Tarea</a>
             <a href="{{ route('technicians.create') }}">Crear Técnico</a>
             <a href="{{ route('technicians.index') }}">Ver Técnicos</a>
+            <a class="logout" href="{{ route('login') }}">Logout</a>
         </nav>
     </div>
 
