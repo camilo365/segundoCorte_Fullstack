@@ -30,6 +30,7 @@
             font-size: 15px;
             font-weight: 600;
             color: #1e293b;
+            text-decoration: none;
         }
 
         nav { display: flex; gap: 4px; }
@@ -180,9 +181,8 @@
 </head>
 <body>
     <div class="topbar">
-        <span class="brand">Gestión de Tareas</span>
+        <a href="{{ route('posts.index') }}" class="brand">Gestión de Tareas</a>
         <nav>
-            <a href="{{ route('posts.index') }}">Inicio</a>
             <a href="{{ route('posts.create') }}">Crear Tarea</a>
             <a href="{{ route('technicians.create') }}">Crear Técnico</a>
             <a href="{{ route('technicians.index') }}">Ver Técnicos</a>

@@ -1,5 +1,5 @@
 @extends('posts.layout')
-@section('title', 'Listado de Posts')
+@section('title', 'Listado de Tareas')
 @section('content')
 
 <h1>LISTADO DE TAREAS DE DESARROLLO</h1>
@@ -10,9 +10,10 @@
             <tr>
                 <th>ID</th>
                 <th>Título</th>
-                <th>Slug</th>
                 <th>Categoría</th>
                 <th>Contenido</th>
+                <th>Estado</th>
+                <th>Fecha límite</th>
                 <th>Acciones</th>
                 <th>Técnico</th>
                 <th>Asignar</th>
@@ -23,9 +24,10 @@
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->title }}</td>
-                    <td>{{ $post->slug }}</td>
                     <td>{{ $post->category }}</td>
                     <td>{{ $post->content }}</td>
+                    <td>{{ $post->status }}</td>
+                    <td>{{ $post->due_date }}</td>
                     <td style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
                         <a href="{{ route('posts.show', $post) }}"
                            style="padding:5px 12px; background:#3b82f6; color:#fff; border-radius:6px; text-decoration:none; font-size:13px;">
@@ -65,7 +67,7 @@
         </tbody>
     </table>
 @else
-    <p>No hay posts registrados.</p>
+    <p>No hay tareas registradas.</p>
 @endif
 
 @endsection

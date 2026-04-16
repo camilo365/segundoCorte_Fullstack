@@ -20,13 +20,14 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|min:3|max:255',
-            'slug' => 'required|min:3|max:255|unique:posts,slug',
             'content' => 'required|min:10',
             'category' => 'nullable|max:100',
+            'status' => 'required|in:pendiente,en_proceso,finalizada',
+            'due_date' => 'nullable|date',
         ]);
         Post::create($request->all());
         return redirect()->route('posts.index')
-            ->with('success', 'Post creado correctamente.');
+            ->with('success', 'Tarea creada correctamente.');
     }
     public function show(Post $post)
     {
@@ -41,20 +42,21 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|min:3|max:255',
-            'slug' => 'required|min:3|max:255|unique:posts,slug,' . $post->id,
             'content' => 'required|min:10',
             'category' => 'nullable|max:100',
+            'status' => 'required|in:pendiente,en_proceso,finalizada',
+            'due_date' => 'nullable|date',
         ]);
         $post->update($request->all());
         return redirect()->route('posts.index')
-            ->with('success', 'Post actualizado correctamente.');
+            ->with('success', 'Tarea actualizada correctamente.');
 
     }
     public function destroy(Post $post)
     {
         $post->delete();
         return redirect()->route('posts.index')
-            ->with('success', 'Post eliminado correctamente.');
+            ->with('success', 'Tarea eliminada correctamente.');
  
     }
 }
