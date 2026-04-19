@@ -19,6 +19,15 @@
         </select>
         <label>Fecha límite</label>
         <input type="date" name="due_date" value="{{ old('due_date') }}">
+        <label>Técnico asignado</label>
+        <select name="technician_id">
+            <option value="">-- Seleccionar técnico --</option>
+            @foreach($technicians as $technician)
+                <option value="{{ $technician->id }}" {{ old('technician_id') == $technician->id ? 'selected' : '' }}>
+                    {{ $technician->names }} {{ $technician->surnames }}
+                </option>
+            @endforeach
+        </select>
         <button type="submit">Guardar</button>
     </form>
 @endsection

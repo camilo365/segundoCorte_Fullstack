@@ -14,7 +14,8 @@ class PostController extends Controller
     }
     public function create()
     {
-        return view('posts.create');
+        $technicians = Technician::all();
+        return view('posts.create', compact('technicians'));
     }
     public function store(Request $request)
     {
@@ -24,6 +25,7 @@ class PostController extends Controller
             'category' => 'nullable|max:100',
             'status' => 'required|in:pendiente,en_proceso,finalizada',
             'due_date' => 'nullable|date',
+            'technician_id' => 'nullable|exists:technicians,id',
         ]);
         Post::create($request->all());
         return redirect()->route('posts.index')
@@ -35,9 +37,9 @@ class PostController extends Controller
     }
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $technicians = Technician::all();
+        return view('posts.edit', compact('post', 'technicians'));
     }
-
     public function update(Request $request, Post $post)
     {
         $request->validate([
@@ -46,6 +48,7 @@ class PostController extends Controller
             'category' => 'nullable|max:100',
             'status' => 'required|in:pendiente,en_proceso,finalizada',
             'due_date' => 'nullable|date',
+            'technician_id' => 'nullable|exists:technicians,id',
         ]);
         $post->update($request->all());
         return redirect()->route('posts.index')

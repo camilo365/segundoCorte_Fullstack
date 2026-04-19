@@ -183,9 +183,10 @@
     <div class="topbar">
         <a href="{{ route('posts.index') }}" class="brand">Gestión de Tareas</a>
         <nav>
+            <a href="{{ route('posts.index') }}">Ver Tareas</a>
             <a href="{{ route('posts.create') }}">Crear Tarea</a>
-            <a href="{{ route('technicians.create') }}">Crear Técnico</a>
             <a href="{{ route('technicians.index') }}">Ver Técnicos</a>
+            <a href="{{ route('technicians.create') }}">Crear Técnico</a>           
             <a class="logout" href="{{ route('login') }}">Logout</a>
         </nav>
     </div>
