@@ -14,9 +14,8 @@
                 <th>Contenido</th>
                 <th>Estado</th>
                 <th>Fecha límite</th>
+                <th>Técnico asignado</th>
                 <th>Acciones</th>
-                <th>Técnico</th>
-                <th>Asignar</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +27,9 @@
                     <td>{{ $post->content }}</td>
                     <td>{{ $post->status }}</td>
                     <td>{{ $post->due_date }}</td>
+                    <td>
+                        {{ $post->technician ? $post->technician->names . ' ' . $post->technician->surnames : 'Sin asignar' }}
+                    </td>
                     <td style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
                         <a href="{{ route('posts.show', $post) }}"
                            style="padding:5px 12px; background:#3b82f6; color:#fff; border-radius:6px; text-decoration:none; font-size:13px;">
@@ -45,22 +47,6 @@
                                 Eliminar
                             </button>
                         </form>
-                    </td>
-                    <td>
-                        <select name="technician_id" style="padding:10px 50px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;">
-                            <option value="">-- Seleccionar --</option>
-                            @foreach($technicians as $technician)
-                                <option value="{{ $technician->id }}">
-                                    {{ $technician->names }} {{ $technician->surnames }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <button type="button"
-                            style="padding:5px 14px; background:#10b981; color:#fff; border:none; border-radius:6px; font-size:13px; cursor:pointer;">
-                            Asignar
-                        </button>
                     </td>
                 </tr>
             @endforeach
