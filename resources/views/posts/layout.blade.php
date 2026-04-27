@@ -187,7 +187,10 @@
             <a href="{{ route('posts.create') }}">Crear Tarea</a>
             <a href="{{ route('technicians.index') }}">Ver Técnicos</a>
             <a href="{{ route('technicians.create') }}">Crear Técnico</a>           
-            <a class="logout" href="{{ route('login') }}">Logout</a>
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                 @csrf
+                <button type="submit" class="logout">Logout</button>
+            </form>
         </nav>
     </div>
 
