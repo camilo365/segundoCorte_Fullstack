@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,17 +21,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('posts', PostController::class);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
 
-Route::resource('technicians', TechnicianController::class);
+Route::middleware(['auth', 'nocache'])->group(function () {
+    Route::resource('posts', PostController::class);
+    Route::resource('technicians', TechnicianController::class);
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
-
-
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');

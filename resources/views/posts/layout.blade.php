@@ -173,7 +173,20 @@
 
         .logout{
             background-color: red;
-            padding: ;
+            color: white;
+        }
+
+        .logout-form {
+            display: inline;
+        }
+
+        .logout-form button {
+            padding: 6px 12px;
+            border: none;
+            background: #dc2626;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         td button:hover { background: #fecaca; }
@@ -186,8 +199,13 @@
             <a href="{{ route('posts.index') }}">Ver Tareas</a>
             <a href="{{ route('posts.create') }}">Crear Tarea</a>
             <a href="{{ route('technicians.index') }}">Ver Técnicos</a>
-            <a href="{{ route('technicians.create') }}">Crear Técnico</a>           
-            <a class="logout" href="{{ route('login') }}">Logout</a>
+            <a href="{{ route('technicians.create') }}">Crear Técnico</a>
+            <a href="{{ route('users.index') }}">Ver Usuarios</a>
+            <a href="{{ route('users.create') }}">Crear Usuario</a>
+            <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                @csrf
+                <button type="submit" class="logout">Logout</button>
+            </form>
         </nav>
     </div>
 

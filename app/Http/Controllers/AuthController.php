@@ -32,7 +32,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login.form')->with('success', 'Sesión cerrada
-correctamente');
+        return redirect()->route('login.form')->with('success', 'Sesión cerrada correctamente');
     }
 }
