@@ -14,39 +14,65 @@
         }
 
         .topbar {
-            background: #dbeafe;
-            border-bottom: 1px solid #bfdbfe;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
             padding: 0 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 56px;
+            height: 64px;
             position: sticky;
             top: 0;
             z-index: 10;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
 
         .brand {
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             color: #1e293b;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        nav { display: flex; gap: 4px; }
+        nav { display: flex; gap: 8px; align-items: center; }
 
         nav a {
             text-decoration: none;
-            color: #64748b;
+            color: #475569;
             font-size: 14px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            transition: background 0.15s, color 0.15s;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
 
         nav a:hover {
             background: #f1f5f9;
             color: #1e293b;
+        }
+
+        nav a.active {
+            background: #1e293b;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #fecaca;
         }
 
         .page {
@@ -56,10 +82,11 @@
         }
 
         .card {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .alert-success {
@@ -181,15 +208,37 @@
 </head>
 <body>
     <div class="topbar">
-        <a href="{{ route('posts.index') }}" class="brand">Gestión de Tareas</a>
+        <a href="{{ route('dashboard') }}" class="brand">
+            <span style="background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px;">MD</span>
+            Mesa de Ayuda
+        </a>
         <nav>
-            <a href="{{ route('posts.index') }}">Ver Tareas</a>
-            <a href="{{ route('posts.create') }}">Crear Tarea</a>
-            <a href="{{ route('technicians.index') }}">Ver Técnicos</a>
-            <a href="{{ route('technicians.create') }}">Crear Técnico</a>           
-            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+            @if(auth()->check())
+                <div style="display: flex; align-items: center; padding-right: 12px; border-right: 1px solid #e2e8f0; margin-right: 12px;">
+                    @if(auth()->user()->photo)
+                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" width="32" height="32" style="border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #e2e8f0;">
+                    @endif
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 13px; font-weight: 700; color: #1e293b; line-height: 1;">{{ auth()->user()->name }}</span>
+                        <span style="font-size: 11px; font-weight: 500; color: #64748b; text-transform: capitalize;">{{ auth()->user()->role }}</span>
+                    </div>
+                </div>
+            @endif
+            
+            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Dashboard</a>
+            <a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Tareas</a>
+            
+            @if(auth()->user()->role != 'tecnico')
+                <a href="{{ route('technicians.index') }}" class="{{ request()->routeIs('technicians.*') ? 'active' : '' }}">Técnicos</a>
+            @endif
+            
+            @if(auth()->check() && auth()->user()->role == 'administrador')
+                <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">Usuarios</a>
+            @endif
+
+            <form method="POST" action="{{ route('logout') }}" style="margin-left: 8px;">
                  @csrf
-                <button type="submit" class="logout">Logout</button>
+                <button type="submit" class="logout-btn">Salir</button>
             </form>
         </nav>
     </div>

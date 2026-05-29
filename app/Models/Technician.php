@@ -15,6 +15,8 @@ class Technician extends Model
         'surnames',
         'age',
         'area',
+        'email',
+        'photo',
     ];
 
     public function posts(){

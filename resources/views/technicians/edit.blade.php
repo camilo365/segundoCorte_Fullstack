@@ -4,7 +4,7 @@
 
 <h1>Editar Técnico</h1>
 
-<form action="{{ route('technicians.update', $technician) }}" method="POST">
+<form action="{{ route('technicians.update', $technician) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -19,6 +19,17 @@
 
     <label>Área</label>
     <input type="text" name="area" value="{{ old('area', $technician->area) }}">
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ old('email', $technician->email) }}">
+
+    <label>Foto</label>
+    <input type="file" name="photo" accept="image/*">
+    @if($technician->photo)
+        <div style="margin-bottom: 15px;">
+            <img src="{{ asset('storage/' . $technician->photo) }}" width="100" style="border-radius: 50%;">
+        </div>
+    @endif
 
     <button type="submit">Actualizar</button>
 </form>
